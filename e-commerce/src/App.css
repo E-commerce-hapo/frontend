@@ -1,0 +1,28 @@
+.appContainer {
+  display: flex;
+  padding-top: 10px;
+  flex: 1;
+}
+
+.sliderBar {
+  flex: 0.8 ;
+  transition: 1s;
+}
+
+.sliderBar.active {
+  flex: 0.2;
+  transition: 1s;
+  overflow: hidden;
+}
+
+.componentLayout {
+  flex: 5;
+  margin-left: 20px;
+  border-top-left-radius: 20px;
+  box-shadow: 0px 0px 6px 0px rgba(63, 63, 63, 0.23);
+  padding: 10px 20px;
+}
+
+
+
+
