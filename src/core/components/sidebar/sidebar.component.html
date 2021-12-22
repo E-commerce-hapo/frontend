@@ -1,0 +1,72 @@
+<div class="nav-sidebar" [ngClass]="{'sidebar-expanded-mobile': !isCollapse, 'sidebar-expanded-desktop': isCollapse}">
+    <div class="nav-sidebar-inner-scroll">
+        <ul class="sidebar-top-level-items">
+            <ng-container *ngFor="let menu of menus">
+                <li *ngIf="!menu?.hidden"
+                    class="is-over is-showing-fly-out"
+                    [class.position-relative]="menu?.display_submenus"
+                    routerLinkActive="active" #rla="routerLinkActive">
+                    <a [routerLink]="menu.route" *ngIf="!menu.href" class="justify-content-center shortcuts-tree qa-project-menu-repo">
+                        <div class="nav-icon-container">
+                            <div class="menu-icon {{rla.isActive ? 'active-menu-item' : ''}}">
+                                <img *ngIf="menu?.icon" [src]="menu.icon" alt="">
+                                <mat-icon *ngIf="menu?.matIcon">
+                                    {{menu?.matIcon}}
+                                </mat-icon>
+                            </div>
+                        </div>
+                        <span class="nav-item-name" *ngIf="isCollapse">{{menu.name}}</span>
+                    </a>
+                    <a [href]="menu.href" target="_blank" *ngIf="menu.href" class="justify-content-center shortcuts-tree qa-project-menu-repo">
+                        <div class="nav-icon-container">
+                            <div class="menu-icon">
+                                <img *ngIf="menu?.icon" [src]="menu.icon" alt="">
+                                <mat-icon *ngIf="menu?.matIcon">
+                                    {{menu?.matIcon}}
+                                </mat-icon>
+                            </div>
+                        </div>
+                        <span class="nav-item-name" *ngIf="isCollapse">{{menu.name}}</span>
+                    </a>
+
+                    <ng-container *ngIf="menu?.display_submenus || !isCollapse">
+                        <mat-icon class="arrow-right" *ngIf="isCollapse">keyboard_arrow_right</mat-icon>
+                        <ul class="sidebar-sub-level-items fly-out-list is-fly-out-only">
+                            <ng-container *ngIf="!isCollapse">
+                                <li>
+                                    <a class="menu-dropdown-item" [routerLink]="menu.route">
+                                        <strong class="px-4 fly-out-top-item-name">{{menu.name}}</strong>
+                                    </a>
+                                </li>
+                                <li *ngIf="menu?.display_submenus" class="divider"></li>
+                            </ng-container>
+                            <ng-container *ngFor="let submenu of menu?.submenus; let first = first">
+                                <ng-container *ngIf="!submenu?.hidden">
+                                    <li class="menu-divider" [ngClass]="{'d-none': first}"></li>
+                                    <li class="submenu-dropdown-item" routerLinkActive="active" #rlaSub="routerLinkActive">
+                                        <a class="submenu-item {{rlaSub.isActive? 'active' : ''}}" [routerLink]="submenu.route">
+                                            <div class="nav-icon-container">
+                                                <div class="submenu-icon">
+                                                    <mat-icon>circle</mat-icon>
+                                                </div>
+                                            </div>
+                                            <span class="nav-item-name">{{submenu.name}}</span>
+                                        </a>
+                                    </li>
+                                </ng-container>
+                            </ng-container>
+                        </ul>
+                    </ng-container>
+                </li>
+                <div *ngIf="menu.isDivider" class="divider"></div>
+            </ng-container>
+            <li class="toggle-sidebar-button cursor-pointer" (click)="isCollapse = false" *ngIf="isCollapse">
+                <i class="fa fa-angle-double-left text-bigger mr-2"></i>
+                <span class="collapse-text mt-1">Thu gọn</span>
+            </li>
+            <li class="toggle-sidebar-button cursor-pointer" (click)="isCollapse = true" *ngIf="!isCollapse">
+                <i class="fa fa-angle-double-right text-bigger m-auto"></i>
+            </li>
+        </ul>
+    </div>
+</div>

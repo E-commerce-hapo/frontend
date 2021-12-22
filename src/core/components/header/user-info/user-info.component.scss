@@ -1,0 +1,50 @@
+.account-info {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  cursor: pointer;
+  color: #444;
+}
+
+.avatar-container {
+  margin-right: 10px;
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  border: 1px solid #eee;
+  border: 1px solid var(--border-gray-color);
+  border-radius: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center;
+  object-position: center;
+}
+
+.img-avatar {
+  display: block;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.account {
+  flex: 1;
+  margin-right: 15px;
+  & > * {
+    display: block;
+  }
+
+  .user-fullname {
+    font-size: 1.3rem;
+    max-width: 210px;
+  }
+
+  .shop-name {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+}

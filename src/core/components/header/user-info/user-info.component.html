@@ -1,0 +1,13 @@
+<div class="nav-link nav-link-right account-info h-100 border-0">
+    <span class="avatar-container">
+        <span class="img-avatar avatar" [ngStyle]="{
+            'background-image':
+                'url(' + (user?.img_url || 'assets/images/placeholder_medium_png') + ')'}">
+        </span>
+    </span>
+    <div class="account">
+        <span class="user-fullname text-truncate">{{user?.full_name}}</span>
+        <span class="shop-name">{{user?.email}}</span>
+    </div>
+    <i class="fa fa-angle-down"></i>
+</div>
