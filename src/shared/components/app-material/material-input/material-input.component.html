@@ -1,4 +1,4 @@
-<div [class.topship]="topshipInput && !error" [class.error]="error" [class.disabled]="disabled">
+<div [class.error]="error" [class.disabled]="disabled">
   <mat-form-field [appearance]="appearance || 'outline'" *ngIf="type == 'custom'">
     <mat-label *ngIf="textLabel">{{textLabel}}</mat-label>
     <ng-content></ng-content>
@@ -40,34 +40,23 @@
     </textarea>
   </mat-form-field>
 
-  <mat-form-field [appearance]="appearance || 'outline'" *ngIf="type == 'select'">
-    <mat-label *ngIf="textLabel">{{textLabel}}</mat-label>
-    <mat-select
-      #matSelect [(ngModel)]="value"
-      [disabled]="disabled" [placeholder]="placeholder" [panelClass]="{'topship': topshipInput}">
-      <mat-option
-        *ngFor="let op of optionSelect"
-        [value]="valueMap ? valueMap(op) : op.value" [disabled]="op.disabled"
-        [class.topship]="topshipInput" [style.height]="matOptionHeight" (click)="select.emit()">
-        <div [innerHTML]="(displayMap ? displayMap(op) : op.name) | safeHtml"></div>
-      </mat-option>
-    </mat-select>
-    <mat-icon
-      class="text-danger cursor-pointer" *ngIf="error"
-      ngbTooltip="{{errorMessage}}" container="body" [disableTooltip]="!errorMessage">
-      warning
-    </mat-icon>
-  </mat-form-field>
+<!--  <mat-form-field [appearance]="appearance || 'outline'" *ngIf="type == 'select'">-->
+<!--    <mat-label *ngIf="textLabel">{{textLabel}}</mat-label>-->
+<!--    <mat-select-->
+<!--      #matSelect [(ngModel)]="value"-->
+<!--      [disabled]="disabled" [placeholder]="placeholder" [panelClass]="{'topship': topshipInput}">-->
+<!--      <mat-option-->
+<!--        *ngFor="let op of optionSelect"-->
+<!--        [value]="valueMap ? valueMap(op) : op.value" [disabled]="op.disabled"-->
+<!--        [class.topship]="topshipInput" [style.height]="matOptionHeight" (click)="select.emit()">-->
+<!--        <div [innerHTML]="(displayMap ? displayMap(op) : op.name) | safeHtml"></div>-->
+<!--      </mat-option>-->
+<!--    </mat-select>-->
+<!--    <mat-icon-->
+<!--      class="text-danger cursor-pointer" *ngIf="error"-->
+<!--      ngbTooltip="{{errorMessage}}" container="body" [disableTooltip]="!errorMessage">-->
+<!--      warning-->
+<!--    </mat-icon>-->
+<!--  </mat-form-field>-->
 
-  <mat-form-field [appearance]="appearance || 'outline'" *ngIf="type == 'datetime'">
-    <mat-label *ngIf="textLabel">{{textLabel}}</mat-label>
-    <input matInput #matInput="matInput" [min]="minDate"
-      [matDatepicker]="dp3" [disabled]="disabled" [placeholder]="placeholder"
-      [(ngModel)]="value"  (ngModelChange)="onInputDateChange()"
-      (click)="_openDatepickerOnClick(dp3)"
-      (keydown.arrowdown)="_openDatepickerOnClick(dp3)"
-      (keydown.enter)="_openDatepickerOnClick(dp3)">
-    <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-    <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-  </mat-form-field>
 </div>

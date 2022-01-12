@@ -1,13 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroupDirective, NG_VALUE_ACCESSOR, NgForm } from '@angular/forms';
-import { ValueAccessorBase } from 'apps/core/src/interfaces/ValueAccessorBase';
 import { MatInput } from '@angular/material/input';
 import { ErrorStateMatcher } from '@angular/material/core';
-import {MaterialInput} from "@etop/shared/components/etop-material/material-input.interface";
 import {MatSelect} from "@angular/material/select";
-import {Moment} from 'moment';
-import { MatDatepicker } from '@angular/material/datepicker';
-import moment from 'moment';
+import {MaterialInput} from "../material-input.interface";
+import {ValueAccessorBase} from "../../../../core/interfaces/ValueAccessorBase";
 
 class CustomerStateMatcher extends ErrorStateMatcher {
   constructor(public ctx: MaterialInputComponent) {
@@ -20,7 +17,7 @@ class CustomerStateMatcher extends ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'etop-material-input',
+  selector: 'app-material-input',
   templateUrl: './material-input.component.html',
   styleUrls: ['./material-input.component.scss'],
   providers: [
@@ -47,14 +44,13 @@ export class MaterialInputComponent extends ValueAccessorBase<string> implements
   @Input() displayHTML = false;
   @Input() topshipInput = false;
   @Input() matOptionHeight: string;
-  @Input() displayMap: (any) => string;
-  @Input() valueMap: (any) => string;
+  @Input() displayMap: (any: any) => string;
+  @Input() valueMap: (any: any) => string;
 
   @Output() blur = new EventEmitter();
   @Output() select = new EventEmitter();
   @Output() enter = new EventEmitter();
 
-  date = new FormControl(moment());
   minDate = new Date(1900, 0, 1);
   // NOTE: *** use for CUSTOM-TYPE material input where value will never change ***
   immutableValue = '-';
@@ -67,12 +63,13 @@ export class MaterialInputComponent extends ValueAccessorBase<string> implements
   onInputDateChange() {
     const _inputValue = this.matInput.value;
     if (!_inputValue) {
+      // @ts-ignore
       this.value = null;
     }
   }
 
   focusInput() {
-    setTimeout(_ => this.matInput.focus());
+    setTimeout((_: any) => this.matInput.focus());
   }
 
   setDisabledState(isDisabled: boolean){
@@ -85,12 +82,6 @@ export class MaterialInputComponent extends ValueAccessorBase<string> implements
     }
     if (this.matSelect) {
       this.matSelect.open();
-    }
-  }
-
-  _openDatepickerOnClick(datepicker: MatDatepicker<Moment>) {
-    if (!datepicker.opened) {
-      datepicker.open();
     }
   }
 }
