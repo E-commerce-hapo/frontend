@@ -1,0 +1,73 @@
+<div [class.topship]="topshipInput && !error" [class.error]="error" [class.disabled]="disabled">
+  <mat-form-field [appearance]="appearance || 'outline'" *ngIf="type == 'custom'">
+    <mat-label *ngIf="textLabel">{{textLabel}}</mat-label>
+    <ng-content></ng-content>
+    <input matInput class="d-none" [autocomplete]="autocomplete" [(ngModel)]="immutableValue" [disabled]="disabled">
+  </mat-form-field>
+
+  <mat-form-field [appearance]="appearance || 'outline'" *ngIf="type == 'input'">
+    <mat-label *ngIf="textLabel">{{textLabel}}</mat-label>
+    <input
+      matInput #matInput="matInput" [autocomplete]="autocomplete"
+      [type]="keyboardType" [placeholder]="placeholder" [disabled]="disabled"
+      [errorStateMatcher]="errorStateMatcher"
+      [(ngModel)]="value" (blur)="blur.next($event)" (keyup.enter)="enter.next()">
+    <mat-hint>
+      <ng-content select="div[role=hint]"></ng-content>
+    </mat-hint>
+    <mat-icon
+      class="text-danger cursor-pointer" *ngIf="error"
+      ngbTooltip="{{errorMessage}}" container="body" [disableTooltip]="!errorMessage">
+      warning
+    </mat-icon>
+  </mat-form-field>
+
+  <mat-form-field [appearance]="appearance || 'outline'" *ngIf="type == 'time'">
+    <mat-label *ngIf="textLabel">{{textLabel}}</mat-label>
+    <input
+      matInput #matInput="matInput" [autocomplete]="autocomplete" type="time"
+      [placeholder]="placeholder" [disabled]="disabled"
+      [(ngModel)]="value" (blur)="blur.next($event)">
+  </mat-form-field>
+
+  <mat-form-field [appearance]="appearance || 'outline'" *ngIf="type == 'text-area'">
+    <mat-label *ngIf="textLabel">{{textLabel}}</mat-label>
+    <textarea
+      matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" autocomplete="new-password"
+      [cdkAutosizeMinRows]="minRow" [cdkAutosizeMaxRows]="maxRow"
+      [placeholder]="placeholder" [disabled]="disabled"
+      (blur)="blur.next($event)" [(ngModel)]="value">
+    </textarea>
+  </mat-form-field>
+
+  <mat-form-field [appearance]="appearance || 'outline'" *ngIf="type == 'select'">
+    <mat-label *ngIf="textLabel">{{textLabel}}</mat-label>
+    <mat-select
+      #matSelect [(ngModel)]="value"
+      [disabled]="disabled" [placeholder]="placeholder" [panelClass]="{'topship': topshipInput}">
+      <mat-option
+        *ngFor="let op of optionSelect"
+        [value]="valueMap ? valueMap(op) : op.value" [disabled]="op.disabled"
+        [class.topship]="topshipInput" [style.height]="matOptionHeight" (click)="select.emit()">
+        <div [innerHTML]="(displayMap ? displayMap(op) : op.name) | safeHtml"></div>
+      </mat-option>
+    </mat-select>
+    <mat-icon
+      class="text-danger cursor-pointer" *ngIf="error"
+      ngbTooltip="{{errorMessage}}" container="body" [disableTooltip]="!errorMessage">
+      warning
+    </mat-icon>
+  </mat-form-field>
+
+  <mat-form-field [appearance]="appearance || 'outline'" *ngIf="type == 'datetime'">
+    <mat-label *ngIf="textLabel">{{textLabel}}</mat-label>
+    <input matInput #matInput="matInput" [min]="minDate"
+      [matDatepicker]="dp3" [disabled]="disabled" [placeholder]="placeholder"
+      [(ngModel)]="value"  (ngModelChange)="onInputDateChange()"
+      (click)="_openDatepickerOnClick(dp3)"
+      (keydown.arrowdown)="_openDatepickerOnClick(dp3)"
+      (keydown.enter)="_openDatepickerOnClick(dp3)">
+    <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+    <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+  </mat-form-field>
+</div>
